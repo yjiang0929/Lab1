@@ -12,8 +12,6 @@ module testFullAdder();
     FullAdderbit adder(sum, carryout, overflow, a, b);
 // We can add -8 through +7
 initial begin
-  $dumpfile("adder.vcd");
-  $dumpvars();
   $display("Four Bit Full Adder positive + positive Tests");
   $display(" A   |  B   | Sum  | Carryout | Overflow | Sum Exp | Carryout Exp | Overflow Exp");            // Prints header for truth table
   a = 32'b00000000000000000000000000000000; b = 32'b00000000000000000000000000000000; #`DELAY                                 // Set A and B, wait for update (#1)

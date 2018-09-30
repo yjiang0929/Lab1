@@ -1,1 +1,9 @@
 
+With our three members, we aim to break down the lab into three different parts:
+
+Yichen: Yichen will work on the test bench for testing the functionality of the ALU. Because there are 8 possible operations, the test bench could take a long time to build and validate. Estimated time: 3 hours
+Nicholas: Nicholas will program the different operations that the ALU will support. As it is anticipated that most of these will be not that difficult, he will first complete every operation except SLT. After those, he will work on SLT. If he finds it to be too much work he will work with another group member. Estimated time: 4 hours
+Coleman: Coleman will work on the LUT and control logic for the ALU. Since there are examples on the assignment page, this portion is more about understanding the behavioral verilog and adapting it to the structure built by Nick. Estimated time: 1.5 hours
+
+All parts will be completed by Wednesday, October 3rd. 
+After we have all finished our individual parts, we will meet together on Wednesday to compile all the pieces and check the results. After we validate that our results are correct, we will collect necessary information and finish writing the report. This meeting is estimated to last 3 hours. 

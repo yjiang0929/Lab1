@@ -51,7 +51,7 @@ module bitSlice
     wire nor_out;
     wire and_out;
     wire nand_out;
-    wire nor_out;
+    wire xor_out;
     wire or_out;
     wire mux0_not;
     wire mux1_not;

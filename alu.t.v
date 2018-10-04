@@ -10,7 +10,7 @@ module testALU();
     wire[3:0] control;
     wire zero, co, ofl;
 
-    ALU32bit alu(r, control, zero, co, ofl, a, b);
+    ALU32bit alu(r, co, zero, ofl, a, b, control);
 
 initial begin
   $dumpfile("alu.vcd");

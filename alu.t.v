@@ -90,11 +90,11 @@ module testALU();
       if (r !== (a-b))
       $display("R Error, should be %b", (a-b));
       control=`SUB; a = 32'hE7654321; b = 32'h31234567; #`DELAY; //neg-pos=neg
-      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   0", control, a, b, r, co, ofl, zero);
+      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   0    |   0", control, a, b, r, co, ofl, zero);
       if (r !== (a-b))
       $display("R Error, should be %b", (a-b));
       control=`SUB; a = 32'hA7654321; b = 32'h71234567; #`DELAY; //neg-pos=neg overflow
-      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   1    |   0", control, a, b, r, co, ofl, zero);
+      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   1    |   0", control, a, b, r, co, ofl, zero);
       if (r !== (a-b))
       $display("R Error, should be %b", (a-b));
 

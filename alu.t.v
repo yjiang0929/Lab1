@@ -51,11 +51,11 @@ module testALU();
       if (r !== (a+b))
       $display("R Error, should be %b", (a+b));
       control=`ADD; a = 32'h000000F; b = 32'hFFFFFFF1; #`DELAY; //test pos+neg=0
-      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   1", control, a, b, r, co, ofl, zero);
+      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   0    |   1", control, a, b, r, co, ofl, zero);
       if (r !== (a+b))
       $display("R Error, should be %b", (a+b));
       control=`ADD; a = 32'hE1234567; b = 32'h72345678; #`DELAY; //test pos+neg carryout
-      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   0", control, a, b, r, co, ofl, zero);
+      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   0    |   0", control, a, b, r, co, ofl, zero);
       if (r !== (a+b))
       $display("R Error, should be %b", (a+b));
 

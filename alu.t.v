@@ -37,7 +37,7 @@ initial begin
   $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   1    |   0", control, a, b, r, co, ofl, zero);
   if (r != a+b)
       $display("R Error");
-  control=3'd0; a = 32'h812345678; b = 32'h12345678; #`DELAY //test pos+neg
+  control=3'd0; a = 32'h81234567; b = 32'h12345678; #`DELAY //test pos+neg
   $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   0", control, a, b, r, co, ofl, zero);
   if (r != a+b)
       $display("R Error");
@@ -45,7 +45,7 @@ initial begin
   $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   1", control, a, b, r, co, ofl, zero);
   if (r != a+b)
       $display("R Error");
-  control=3'd0; a = 32'hE12345678; b = 32'h72345678; #`DELAY //test pos+neg carryout
+  control=3'd0; a = 32'hE1234567; b = 32'h72345678; #`DELAY //test pos+neg carryout
   $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   0", control, a, b, r, co, ofl, zero);
   if (r != a+b)
       $display("R Error");

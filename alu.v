@@ -69,6 +69,7 @@ input[2:0]    command
 	wire nout;
 	wire SLT_internal;
 	wire nslt_enable;
+	wire slt_final;
 
 	//LUT
 	ALUcontrolLUT LUT(
@@ -94,6 +95,7 @@ input[2:0]    command
 	`AND_GATE out_and_gate(slt_a_and, operandA[31], nout);
 	`OR_GATE  slt_or_gate(SLT_internal, slt_b_and, slt_a_and);
 	`NOT_GATE slt_not_gate(nslt_enable, slt_enable);
+	`AND_GATE slt_final_and_gate(slt_final, SLT_internal, slt_enable);
 
 	//First bitslice
 	bitSlice bitslice0( .c_out(out[0]), .carry_out(c[0]), .A(operandA[0]),
@@ -102,7 +104,7 @@ input[2:0]    command
 		.subtract(subtract));
 		//carry_in subtract on the first bit, to handle the 
 		//adding 1 in 2's complement subtraction
-	`OR_GATE result_or(result[0],out[0],SLT_internal);
+	`OR_GATE result_or(result[0],out[0],slt_final);
 
 	//Generate remaining bitslices and slt_enable and gates
 	genvar i;

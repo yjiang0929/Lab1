@@ -3,7 +3,7 @@
 `include "alu.v"
 `define DELAY 5000
 
-`define ADD  3'd0
+`define `ADD  3'd0
 `define SUB  3'd1
 `define XOR  3'd2
 `define SLT  3'd3
@@ -15,42 +15,42 @@
 module testALU();
     reg[31:0] a;
     reg[31:0] b;
-    reg[3:0] control;
+    reg[2:0] control;
     wire[31:0] r;
     wire zero, co, ofl;
 
-    ALU32bit alu(r, co, zero, ofl, a, b, control);
+    ALU alu(r, co, zero, ofl, a, b, control);
 
     initial begin
       $dumpfile("alu.vcd");
       $dumpvars();
       $display("32 Bit ADD tests");
       $display("Control |                A                 |                B                 |                R                   |COut | OFL |ZERO |Cout Exp| OFL Exp|ZERP Exp");
-      control=ADD; a = 32'h0000000; b = 32'h00000000; #`DELAY; //0+0
+      control=`ADD; a = 32'h0000000; b = 32'h00000000; #`DELAY; //0+0
       $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   1", control, a, b, r, co, ofl, zero);
       if (r != a+b)
           $display("R Error");
-      control=ADD; a = 32'h01234567; b = 32'h0FFFFFFF; #`DELAY; //test pos+pos
+      control=`ADD; a = 32'h01234567; b = 32'h0FFFFFFF; #`DELAY; //test pos+pos
       $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   0", control, a, b, r, co, ofl, zero);
       if (r != a+b)
           $display("R Error");
-      control=ADD; a = 32'h7FFFFFFF; b = 32'h7FFFFFFF; #`DELAY; //test pos+pos overflow
+      control=`ADD; a = 32'h7FFFFFFF; b = 32'h7FFFFFFF; #`DELAY; //test pos+pos overflow
       $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   1    |   0", control, a, b, r, co, ofl, zero);
       if (r != a+b)
           $display("R Error");
-      control=ADD; a = 32'hFFFFFFFF; b = 32'hFFFFFFFF; #`DELAY; //test neg+neg carryout
+      control=`ADD; a = 32'hFFFFFFFF; b = 32'hFFFFFFFF; #`DELAY; //test neg+neg carryout
       $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   0    |   0", control, a, b, r, co, ofl, zero);
       if (r != a+b)
           $display("R Error");
-      control=ADD; a = 32'h90000000; b = 32'h80000000; #`DELAY; //test neg+neg carryout+overflow
+      control=`ADD; a = 32'h90000000; b = 32'h80000000; #`DELAY; //test neg+neg carryout+overflow
       $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   1    |   0", control, a, b, r, co, ofl, zero);
       if (r != a+b)
           $display("R Error");
-      control=ADD; a = 32'h81234567; b = 32'h12345678; #`DELAY; //test pos+neg
+      control=`ADD; a = 32'h81234567; b = 32'h12345678; #`DELAY; //test pos+neg
       $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   0", control, a, b, r, co, ofl, zero);
       if (r != a+b)
           $display("R Error");
-      control=ADD; a = 32'h000000F; b = 32'hFFFFFFF1; #`DELAY; //test pos+neg=0
+      control=`ADD; a = 32'h000000F; b = 32'hFFFFFFF1; #`DELAY; //test pos+neg=0
       $display("%b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   1", control, a, b, r, co, ofl, zero);
       if (r != a+b)
           $display("R Error");

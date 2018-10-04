@@ -12,27 +12,29 @@
 `define OR   3'd7
 
 module testALULUT();
-	reg[2:0] command;
-	wire[2:0] alu_code;
-	wire set_flags;
-	wire slt_enable;
-	wire subtract;
+	reg[2:0] test_command;
+	wire test_alu_code0;
+	wire test_alu_code1;
+	wire test_alu_code2;
+	wire test_set_flags;
+	wire test_slt_enable;
+	wire test_subtract;
 
-	ALUcontrolLUT ALU(alu_code, set_flags, slt_enable, subtract, command);
+	ALUcontrolLUT test_ALU(test_alu_code0, test_alu_code1, test_alu_code2, test_set_flags, test_slt_enable, test_subtract, test_command);
 
 initial begin
 	$dumpfile("lut.vcd");
 	$dumpvars();
 	$display("Command | ALU Code | Flags | SLT | Subtract");
-	$monitor("   %h    |    %h     |   %h   |  %h  |    %h", command, alu_code, set_flags, slt_enable, subtract);
-	command = `ADD; #`DELAY; // Flags = 1
-	command = `SUB; #`DELAY; // Flags = 1, Subtract = 1
-	command = `XOR; #`DELAY;
-	command = `SLT; #`DELAY; // SLT = 1, Subtract = 1
-	command = `AND; #`DELAY;
-	command = `NAND; #`DELAY;
-	command = `NOR; #`DELAY;
-	command = `OR; #`DELAY;
+	$monitor("   %h    |    %h %h %h     |   %h   |  %h  |    %h", test_command, test_alu_code2,test_alu_code1,test_alu_code0, test_set_flags, test_slt_enable, test_subtract);
+	test_command = `ADD; #`DELAY; // Flags = 1
+	test_command = `SUB; #`DELAY; // Flags = 1, Subtract = 1
+	test_command = `XOR; #`DELAY;
+	test_command = `SLT; #`DELAY; // SLT = 1, Subtract = 1
+	test_command = `AND; #`DELAY;
+	test_command = `NAND; #`DELAY;
+	test_command = `NOR; #`DELAY;
+	test_command = `OR; #`DELAY;
 
 end // inital
 endmodule // testALULUT

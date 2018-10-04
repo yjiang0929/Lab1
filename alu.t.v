@@ -25,7 +25,7 @@ module testALU();
       $dumpfile("alu.vcd");
       $dumpvars();
       $display("32 Bit ADD tests");
-      $display("Control|                A                 |                B                 |                 R                  |COut | OFL |ZERO |Cout Exp| OFL Exp|ZERP Exp");
+      $display("Control|                A                 |                B                 |                 R                  |COut | OFL |ZERO |Cout Exp| OFL Exp|ZERO Exp");
       control=`ADD; a = 32'h0000000; b = 32'h00000000; #`DELAY; //0+0
       $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   1", control, a, b, r, co, ofl, zero);
       if (r !== (a+b))
@@ -60,7 +60,7 @@ module testALU();
       $display("R Error, should be %b", (a+b));
 
       $display("32 Bit SUB tests");
-      $display("Control|                A                 |                B                 |                 R                  |COut | OFL |ZERO |Cout Exp| OFL Exp|ZERP Exp");
+      $display("Control|                A                 |                B                 |                 R                  |COut | OFL |ZERO |Cout Exp| OFL Exp|ZERO Exp");
       control=`SUB; a = 32'h12345678; b = 32'h12345678; #`DELAY; //a-b=0
       $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   1", control, a, b, r, co, ofl, zero);
       if (r !== (a-b))

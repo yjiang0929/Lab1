@@ -214,27 +214,27 @@ module testALU();
       $display("Control |                A                 |                B                 |                R                   ");
       control=`NOR; a = 32'h87654321; b = 32'h12345678; #`DELAY; //NOR two normal cases
       $display("  %b   | %b | %b |  %b  ", control, a, b, r);
-      if (r !== ~(a|b))
+      if (r !== (a~|b))
       $display("R Error, should be %b", ~(a|b));
       control=`NOR; a = 32'hFFFFFFFF; b = 32'h12345678; #`DELAY; //NOR with all 1
       $display("  %b   | %b | %b |  %b  ", control, a, b, r);
-      if (r !== ~(a|b))
+      if (r !== (a~|b))
       $display("R Error, should be %b", ~(a|b));
       control=`NOR; a = 32'hFFFFFFFF; b = 32'hFFFFFFFF; #`DELAY; //NOR two all 1 cases
       $display("  %b   | %b | %b |  %b  ", control, a, b, r);
-      if (r !== ~(a|b))
+      if (r !== (a~|b))
       $display("R Error, should be %b", ~(a|b));
       control=`NOR; a = 32'h00000000; b = 32'h12345678; #`DELAY; //NOR with all 0
       $display("  %b   | %b | %b |  %b  ", control, a, b, r);
-      if (r !== ~(a|b))
+      if (r !== (a~|b))
       $display("R Error, should be %b", ~(a|b));
       control=`NOR; a = 32'h00000000; b = 32'h00000000; #`DELAY; //NOR two all 0 cases
       $display("  %b   | %b | %b |  %b  ", control, a, b, r);
-      if (r !== ~(a|b))
+      if (r !== (a~|b))
       $display("R Error, should be %b", ~(a|b));
       control=`NOR; a = 32'hFFFFFFFF; b = 32'h00000000; #`DELAY; //NOR all 1 and all 0 cases
       $display("  %b   | %b | %b |  %b  ", control, a, b, r);
-      if (r !== ~(a|b))
+      if (r !== (a~|b))
       $display("R Error, should be %b", ~(a|b));
 
       $display("32 Bit OR tests");

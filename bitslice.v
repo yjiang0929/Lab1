@@ -81,13 +81,13 @@ module bitSlice
     `NOT_GATE not2(mux2_not, mux_in[2]);
 
     //Mux implementation, with each mux_in defining a different possible input to the mux. Only 1 of the 8 options can be 1.
-    `FOURAND_GATE fourand0(mux_in0, mux0_not, mux1_not, mux2_not, adder_out);
-    `FOURAND_GATE fourand1(mux_in1, mux0_not, mux1_not, mux_in[0], adder_out);
-    `FOURAND_GATE fourand2(mux_in2, mux0_not, mux_in[1], mux2_not, xor_out);
-    `FOURAND_GATE fourand3(mux_in3, mux0_not, mux_in[1], mux_in[0], adder_out);
-    `FOURAND_GATE fourand4(mux_in4, mux_in[2], mux1_not, mux2_not, and_out);
+    `FOURAND_GATE fourand0(mux_in0, mux2_not, mux1_not, mux0_not, adder_out);
+    `FOURAND_GATE fourand1(mux_in1, mux2_not, mux1_not, mux_in[0], adder_out);
+    `FOURAND_GATE fourand2(mux_in2, mux2_not, mux_in[1], mux0_not, xor_out);
+    `FOURAND_GATE fourand3(mux_in3, mux2_not, mux_in[1], mux_in[0], adder_out);
+    `FOURAND_GATE fourand4(mux_in4, mux_in[2], mux1_not, mux0_not, and_out);
     `FOURAND_GATE fourand5(mux_in5, mux_in[2], mux1_not, mux_in[0], nand_out);
-    `FOURAND_GATE fourand6(mux_in6, mux_in[2], mux_in[1], mux2_not, nor_out);
+    `FOURAND_GATE fourand6(mux_in6, mux_in[2], mux_in[1], mux0_not, nor_out);
     `FOURAND_GATE fourand7(mux_in7, mux_in[2], mux_in[1], mux_in[0], or_out);
 
     //The mux allows only one of the 8 different mux_ins to be 1, and therefore we can take the OR_GATE of all of them

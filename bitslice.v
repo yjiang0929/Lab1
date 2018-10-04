@@ -1,3 +1,4 @@
+//Definitions
 `define AND_GATE and #30
 `define NAND_GATE nand #20
 `define OR_GATE or #30

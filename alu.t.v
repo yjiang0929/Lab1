@@ -135,8 +135,8 @@ module testALU();
       $display("  %b   | %b | %b |  %b  ", control, a, b, r);
       if (r !== 32'h00000000)
       $display("R Error, should be %b", 32'h00000000);
-      $display("  %b   | %b | %b |  %b  ", control, a, b, r);
       control=`SLT; a = 32'h12345678; b = 32'h7FFFFFFF; #`DELAY; //pos<pos
+      $display("  %b   | %b | %b |  %b  ", control, a, b, r);
       if (r !== 32'h00000001)
       $display("R Error, should be %b", 32'h00000001);
       control=`SLT; a = 32'hFFFFFFFF; b = 32'h81234567; #`DELAY; //neg>neg

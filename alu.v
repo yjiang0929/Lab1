@@ -20,6 +20,17 @@
 `include "bitslice.v"
 
 module ALUcontrolLUT
+/*
+LUT module for our ALU control
+Inputs:
+ALUcommand: The command that the ALU takes in as an input, indicating which operation to perform
+
+Outpus:
+alu_code0-2: The three control bits used in our bitslice muxes. Directly wired to ALUcommand
+set_flags: Whether the zero, carryout, and overflow flags should be used in the ALU's output. only true if adding or subtracting
+slt_enable: Whether to zero the entire output of the ALU except for the least significant bit, to compy with the SLT format output
+subtract: Whether to subtract b from a in the bitslices, and add 1 in the first bitslice's carryin. true for subtraction or slt.
+*/
 (
 output reg alu_code0,
 output reg alu_code1,
@@ -45,6 +56,18 @@ end
 endmodule
 
 module ALU
+/*
+ALU
+inputs:
+operandA & B: 32 bit, 2's complement binary strings
+command: which operation to perform on the two input strings
+
+outputs:
+result: the result of the operation defined by command on operandA and operandB
+carryout: if the command was ADD or SUB, the final carry out of the final adder
+zero: if the command was ADD or SUB, whether the final result was zero
+overflow: if the command was ADD or SUB, whether the adders overflowed
+*/
 (
 output[31:0]  result,
 output        carryout,
@@ -54,7 +77,7 @@ input[31:0]   operandA,
 input[31:0]   operandB,
 input[2:0]    command
 );
-	wire c[31:0];
+	wire c[31:0]; //carries between bitslices
 	wire zero_nor;
 	wire slt_b_and;
 	wire slt_a_and;
@@ -85,13 +108,22 @@ input[2:0]    command
 		.ALUcommand(command));
 
 	//Flags
+	
+	//Determines whether an overflow occured, then raises the overflow flags if set_flags is high
 	`XOR_GATE overflow_xor_gate(overflow_internal, c[30], c[31]);
 	`AND_GATE overflow_and_gate(overflow,overflow_internal,set_flags);
+
+	//NORs all of the output bits together to see if they're all zero, then raises the zero flag if set_flags is high
 	`AND_GATE zero_and_gate(zero, zero_nor, set_flags);
-	`AND_GATE carryout_and_gate(carryout, c[31], set_flags);
 	`NOR_32_GATE out_nor_gate(zero_nor, out[0], out[1], out[2], out[3], out[4], out[5], out[6], out[7], out[8], out[9], out[10], out[11], out[12], out[13], out[14], out[15], out[16], out[17], out[18], out[19], out[20], out[21], out[22], out[23], out[24], out[25], out[26], out[27], out[28], out[29], out[30], out[31]);
 
+	//If set_flags is high, output the final carry bit
+	`AND_GATE carryout_and_gate(carryout, c[31], set_flags);
+
 	//SLT
+	//These encapsulate all of the logic to determine whether operandA is less than operandB
+	//Based on sign of both operands, and sign of the subtraction that occurs
+	//See the diagram in our report for a visual layout of these gates
 	`NOT_GATE b_not_gate(nb, operandB[31]);
 	`NOT_GATE out_not_gate(nout, out[31]);
 	`AND_GATE b_and_gate(slt_b_and, nb, out[31]);
@@ -124,6 +156,7 @@ input[2:0]    command
 				.B(operandB[i]), 
 				.mux_in({alu_code_internal2,alu_code_internal1,alu_code_internal0}), 
 				.subtract(subtract));
+			//If we're doing slt, zero all of the output bits
 			`AND_GATE result_and(result[i], out[i], nslt_enable);
 		end
 	endgenerate

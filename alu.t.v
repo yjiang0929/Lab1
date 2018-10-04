@@ -62,11 +62,11 @@ module testALU();
       $display("32 Bit SUB tests");
       $display("Control|                A                 |                B                 |                 R                  |COut | OFL |ZERO |Cout Exp| OFL Exp|ZERO Exp");
       control=`SUB; a = 32'h12345678; b = 32'h12345678; #`DELAY; //a-b=0
-      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   1", control, a, b, r, co, ofl, zero);
+      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   0    |   1", control, a, b, r, co, ofl, zero);
       if (r !== (a-b))
       $display("R Error, should be %b", (a-b));
       control=`SUB; a = 32'h7FFFFFFF; b = 32'h71234567; #`DELAY; //pos-pos=pos
-      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   0", control, a, b, r, co, ofl, zero);
+      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   0    |   0", control, a, b, r, co, ofl, zero);
       if (r !== (a-b))
       $display("R Error, should be %b", (a-b));
       control=`SUB; a = 32'h71234567; b = 32'h7FFFFFFF; #`DELAY; //pos-pos=neg
@@ -74,7 +74,7 @@ module testALU();
       if (r !== (a-b))
       $display("R Error, should be %b", (a-b));
       control=`SUB; a = 32'hFFFFFFFF; b = 32'hF1234567; #`DELAY; //neg-neg=pos
-      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   0    |   0    |   0", control, a, b, r, co, ofl, zero);
+      $display("  %b  | %b | %b |  %b  |  %b  |  %b  |  %b  |   1    |   0    |   0", control, a, b, r, co, ofl, zero);
       if (r !== (a-b))
       $display("R Error, should be %b", (a-b));
       control=`SUB; a = 32'hF1234567; b = 32'hFFFFFFFF; #`DELAY; //neg-neg=neg

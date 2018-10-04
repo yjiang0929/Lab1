@@ -15,6 +15,7 @@
 `define NOR_32_GATE nor #320
 `define AND_32_GATE and #330
 `define NOR_GATE nor #20
+`define OR_3_GATE or #40
 
 `include "bitslice.v"
 
@@ -71,6 +72,7 @@ input[2:0]    command
 	wire nslt_enable;
 	wire slt_final;
 	wire slt_nand;
+	wire slt_ab_and;
 
 	//LUT
 	ALUcontrolLUT LUT(
@@ -93,8 +95,9 @@ input[2:0]    command
 	`NOT_GATE b_not_gate(nb, operandB[31]);
 	`NOT_GATE out_not_gate(nout, out[31]);
 	`AND_GATE b_and_gate(slt_b_and, nb, out[31]);
-	`AND_GATE out_and_gate(slt_a_and, operandA[31], nout);
-	`OR_GATE  slt_or_gate(SLT_internal, slt_b_and, slt_a_and);
+	`AND_GATE out_and_gate(slt_a_and, operandA[31], out[31]);
+	`AND_GATE ab_and_gate(slt_ab_and, nb, operandA[31]);
+	`OR_3_GATE  slt_or_gate(SLT_internal, slt_b_and, slt_a_and, slt_ab_and);
 	`NOT_GATE slt_not_gate(nslt_enable, slt_enable);
 	`AND_GATE slt_final_and_gate(slt_final, SLT_internal, slt_enable);
 	`AND_GATE slt_and_gate(slt_nand, out[0],nslt_enable);
